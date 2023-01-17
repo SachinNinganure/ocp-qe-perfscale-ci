@@ -51,7 +51,7 @@ pipeline {
         stage('Checkout repo'){
           steps{
             dir('Egress-Load-test'){
-              git branch: params.LOGGING_HELPER_REPO_BRANCH, url: params.LOGGING_HELPER_REPO
+              git branch: params.EGRESS_REPO_BRANCH, url: params.EGRESS_REPO
             }
           }
         }
