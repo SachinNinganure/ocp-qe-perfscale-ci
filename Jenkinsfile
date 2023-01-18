@@ -75,8 +75,6 @@ pipeline {
               python --version
               python3 --version
               whoami
-              ls -la
-              ls Egress-Load-test
               '''
             }
           }
