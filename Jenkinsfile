@@ -13,7 +13,7 @@ pipeline {
         string(name: 'BUILD_NUMBER', defaultValue: '', description: 'Build number of job that has installed the cluster.')
         string(name: 'JENKINS_AGENT_LABEL',defaultValue:'oc410 || oc411 || oc412')
         string(name: 'EGRESS_REPO', defaultValue:'https://github.com/SachinNinganure/Egress-Load-test', description:'You can change this to point to your fork if needed.')
-        string(name: 'EGRESS_REPO_BRANCH', defaultValue:'main', description:'You can change this to point to a branch on your fork if needed.')
+        string(name: 'EGRESS_REPO_BRANCH', defaultValue:'master', description:'You can change this to point to a branch on your fork if needed.')
         text(name: 'ENV_VARS', defaultValue: '', description:'''<p>
                Enter list of additional (optional) Env Vars you'd want to pass to the script, one pair on each line. <br>
                e.g.<br>
