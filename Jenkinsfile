@@ -79,6 +79,10 @@ pipeline {
             }
           }
         }
+	stage('Archive Artifacts') {
+            steps {
+                archiveArtifacts artifacts: 'output/**', fingerprint: true
+            }
         stage('Run egress script to test the egress functionality'){
           steps{
             ansiColor('xterm') {
