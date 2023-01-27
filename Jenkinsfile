@@ -79,12 +79,6 @@ pipeline {
             }
           }
         }
-        stage('Archive Artifacts') {
-          steps {
-                 invoke('mkdir output')
-		 archiveArtifacts artifacts: 'output/', fingerprint: true
-                }
-            }
 
 	stage('Run egress script to test the egress functionality'){
           steps{
@@ -98,13 +92,20 @@ pipeline {
               cp $WORKSPACE/flexy-artifacts/workdir/install-dir/auth/kubeconfig ~/.kube/config
               ls -la
               cd Egress-Load-test 
+              mkdir output
               ./run.sh 
               '''
             }
           }
         }
+        stage('Archive Artifacts') {
+          steps {
+                 archiveArtifacts artifacts: 'Egress-Load-test/output/*', fingerprint: true
+                }
+            }
+
+        }
       }
     }
 
   }
-}
