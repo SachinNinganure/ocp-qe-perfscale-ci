@@ -93,6 +93,7 @@ pipeline {
               ls -la
               cd Egress-Load-test 
               mkdir output
+	      pwd
               ./run.sh 
               '''
             }
@@ -100,7 +101,8 @@ pipeline {
         }
         stage('Archive Artifacts') {
           steps {
-                 archiveArtifacts artifacts: 'Egress-Load-test/output/*', fingerprint: true
+                  sh 'pwd'
+		  archiveArtifacts artifacts: 'Egress-Load-test/output/*', fingerprint: true
                 }
             }
 
