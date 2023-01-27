@@ -81,7 +81,7 @@ pipeline {
         }
         stage('Archive Artifacts') {
           steps {
-                 archiveArtifacts artifacts: 'output/', fingerprint: true
+                 archiveArtifacts artifacts: 'output', fingerprint: true
                 }
             }
 
