@@ -81,7 +81,8 @@ pipeline {
         }
         stage('Archive Artifacts') {
           steps {
-                 archiveArtifacts artifacts: 'output', fingerprint: true
+                 invoke('mkdir output')
+		 archiveArtifacts artifacts: 'output/', fingerprint: true
                 }
             }
 
