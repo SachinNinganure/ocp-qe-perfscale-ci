@@ -92,7 +92,6 @@ pipeline {
               cp $WORKSPACE/flexy-artifacts/workdir/install-dir/auth/kubeconfig ~/.kube/config
               ls -la
               cd Egress-Load-test 
-              mkdir output
 	      pwd
               ./run.sh 
               '''
@@ -102,7 +101,7 @@ pipeline {
         stage('Archive Artifacts') {
           steps {
                   sh 'pwd'
-		  archiveArtifacts artifacts: 'Egress-Load-test/output/*', fingerprint: true
+		  archiveArtifacts artifacts: 'Egress-Load-test/*', fingerprint: true
                 }
             }
 
