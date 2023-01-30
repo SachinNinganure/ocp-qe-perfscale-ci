@@ -51,6 +51,7 @@ pipeline {
                 private_ip_address = sh returnStdout: true, script: 'grep INT_SVC_INSTANCE_INTERNAL_IP  flexy-artifacts/workdir/install-dir/cluster_info.json'
                 println "$private_ip_address"
  	 	private_ip_address = private_ip_address.replace('INT_SVC_INSTANCE_INTERNAL_IP ', '')
+                println "$private_ip_address"
                 ENV_VARS += '\n' + private_ip_address
 		sh label: '', script: '''
 		echo "$ENV_VARS" > .env_override
