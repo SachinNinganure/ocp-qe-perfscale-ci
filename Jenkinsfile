@@ -55,7 +55,7 @@ pipeline {
 		echo "$ENV_VARS" > .env_override
 		set -a && source .env_override && set +a
 		echo $private_ip_address|awk -F "." '{print $1}'|awk -F 'ip-' '{print $2}'|tr "-" ".">.env_override
-                cat .env_override
+                echo .env_override
                 echo $private_ip_address
                 '''
 		ENV_VARS += '\n' + private_ip_address
