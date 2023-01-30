@@ -45,7 +45,7 @@ pipeline {
               currentBuild.description = "Copying Artifact from Flexy-install build <a href=\"${buildinfo.buildUrl}\">Flexy-install#${params.BUILD_NUMBER}</a>"
               buildinfo.params.each { env.setProperty(it.key, it.value) }
             }
-               if (fileExists("flexy-artifacts/workdir/install-dir/cluster_info.json")){ 
+            script {   if (fileExists("flexy-artifacts/workdir/install-dir/cluster_info.json")){ 
                 println "private_ip_address"
                 private_ip_address = sh returnStdout: true, script: 'grep INT_SVC_INSTANCE_INTERNAL_IP  flexy-artifacts/workdir/install-dir/cluster_info.json'
                 private_ip_address = private_ip_address.replace('INT_SVC_INSTANCE_INTERNAL_IP ', '')
@@ -55,7 +55,8 @@ pipeline {
                 println "$ENV_VARS"
 
                 }
-            }
+              }
+          }
         }
         stage('Checkout repo'){
           steps{
