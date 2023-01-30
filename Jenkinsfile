@@ -60,6 +60,7 @@ pipeline {
                 #echo $private_ip_address
                 '''
 		private_ip_address="echo abc.txt"
+		println $private_ip_address
 		ENV_VARS += '\n' + private_ip_address
                 println "$ENV_VARS"
                 }
