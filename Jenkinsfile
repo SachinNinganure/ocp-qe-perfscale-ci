@@ -52,7 +52,7 @@ pipeline {
 		println private_ip_address
 		def contentregex = "INT_SVC_INSTANCE_INTERNAL_IP"
 		private_ip_address = (private_ip_address =~ contentregex)
-		println private_ip_address[0]
+		println private_ip_address
                 private_ip_address = sh returnStdout: true, script: 'cat flexy-artifacts/workdir/install-dir/cluster_info.json|grep INT_SVC_INSTANCE_INTERNAL_IP'
                 println "$private_ip_address"
                 ENV_VARS += '\n' + private_ip_address
