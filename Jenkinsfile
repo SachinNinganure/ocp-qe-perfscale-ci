@@ -58,7 +58,7 @@ pipeline {
                 echo "$private_ip_address"
                 echo "I am at the last of the logic, $private_ip_address"
 		echo $private_ip_address >flexy-artifacts/workdir/install-dir/ipfile.txt
-	        export private_ip_address="$private_ip_address"
+	        export ENV_VARS="$private_ip_address"
                 '''
 		private_ip_address = sh returnStdout: true, script: 'cat flexy-artifacts/workdir/install-dir/ipfile.txt'
 		println private_ip_address
@@ -120,7 +120,7 @@ pipeline {
 	      echo "RUNNING THE EGRESS PERF TEST"
 	      pwd
 	      echo $private_ip_address 
-              ./run.sh  
+              ./run.sh $ENV_VARS 
               '''
             }
           }
