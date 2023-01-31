@@ -65,7 +65,7 @@ pipeline {
 		ENV_VARS += '\n' + private_ip_address
                 println "printing the ENV variable "
 		println "$ENV_VARS"
-		export private_ip_address=$private_ip_address
+		export private_ip_address="$private_ip_address"
 		println "export complete............................................!!!!"
                 }
               }
