@@ -119,6 +119,7 @@ pipeline {
               cd Egress-Load-test 
 	      echo "RUNNING THE EGRESS PERF TEST"
 	      pwd
+	      println private_ip_address 
               ./run.sh  
               '''
             }
