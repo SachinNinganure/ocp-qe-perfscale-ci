@@ -61,8 +61,10 @@ pipeline {
                 '''
 		private_ip_address = sh returnStdout: true, script: 'cat flexy-artifacts/workdir/install-dir/ipfile.txt'
 		println private_ip_address
+		println "now copying ip to ENV variable"
 		ENV_VARS += '\n' + private_ip_address
-                println "$ENV_VARS"
+                println "printing the ENV variable "
+		println "$ENV_VARS"
                 }
               }
           }
