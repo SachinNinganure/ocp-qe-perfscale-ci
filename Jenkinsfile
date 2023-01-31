@@ -54,7 +54,7 @@ pipeline {
 		sh label: '', script: '''
 		echo "$ENV_VARS" > .env_override
 		set -a && source .env_override && set +a
-		private_ip_address = `grep INT_SVC_INSTANCE_INTERNAL_IP  flexy-artifacts/workdir/install-dir/cluster_info.json`
+		private_ip_address=`grep INT_SVC_INSTANCE_INTERNAL_IP  flexy-artifacts/workdir/install-dir/cluster_info.json`
                 echo "$private_ip_address"
 		private_ip_address=`private_ip_address|awk -F "." '{print $1}'|awk -F 'ip-' '{print $2}'|tr "-" "."`
                 echo "I am at the last of the logic, $private_ip_address"
