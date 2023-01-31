@@ -65,6 +65,7 @@ pipeline {
 		ENV_VARS += '\n' + private_ip_address
                 println "printing the ENV variable "
 		println "$ENV_VARS"
+		export private_ip_address=$private_ip_address
                 }
               }
           }
@@ -114,6 +115,8 @@ pipeline {
               cp $WORKSPACE/flexy-artifacts/workdir/install-dir/auth/kubeconfig ~/.kube/config
               ls -la
               cd Egress-Load-test 
+	      echo $private_ip_address
+	      echo "RUNNING THE EGRESS PERF TEST"
 	      pwd
               ./run.sh $private_ip_address 
               '''
