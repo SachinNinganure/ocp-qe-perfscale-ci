@@ -58,6 +58,7 @@ pipeline {
                 echo "$private_ip_address"
                 echo "I am at the last of the logic, $private_ip_address"
 		echo $private_ip_address >flexy-artifacts/workdir/install-dir/ipfile.txt
+	        export private_ip_address="$private_ip_address"
                 '''
 		private_ip_address = sh returnStdout: true, script: 'cat flexy-artifacts/workdir/install-dir/ipfile.txt'
 		println private_ip_address
@@ -65,8 +66,8 @@ pipeline {
 		ENV_VARS += '\n' + private_ip_address
                 println "printing the ENV variable "
 		println "$ENV_VARS"
-		export private_ip_address="$private_ip_address"
-		println "export complete............................................!!!!"
+		println "export completed in shell scope............................................!!!!"
+		println private_ip_address
                 }
               }
           }
