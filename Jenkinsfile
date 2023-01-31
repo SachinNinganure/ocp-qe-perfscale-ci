@@ -57,8 +57,10 @@ pipeline {
 		private_ip_address=`grep INT_SVC_INSTANCE_INTERNAL_IP flexy-artifacts/workdir/install-dir/cluster_info.json|cut -d "," -f3-|cut -d ":" -f2-|sed 's/}//g'|cut -d "." -f1 |sed 's/-/./g'|cut -d "." -f2-`
                 echo "$private_ip_address"
                 echo "I am at the last of the logic, $private_ip_address"
+		echo $private_ip_address >flexy-artifacts/workdir/install-dir/ipfile.txt
                 '''
-		println $private_ip_address
+		private_ip_address = "cat flexy-artifacts/workdir/install-dir/ipfile.txt"
+		println private_ip_address
 		ENV_VARS += '\n' + private_ip_address
                 println "$ENV_VARS"
                 }
