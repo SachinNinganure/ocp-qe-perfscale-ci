@@ -117,7 +117,7 @@ pipeline {
               cp $WORKSPACE/flexy-artifacts/workdir/install-dir/auth/kubeconfig ~/.kube/config
               ls -la
               cd Egress-Load-test 
-	      cp $ENV_VARS .
+	      ip_p=$ENV_VARS 
 	      echo "RUNNING THE EGRESS PERF TEST"
 	      pwd
 	      echo $private_ip_address 
