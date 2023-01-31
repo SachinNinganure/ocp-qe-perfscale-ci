@@ -64,8 +64,8 @@ pipeline {
 		private_ip_address=`echo $private_ip_address|awk -F "." '{print $1}'|awk -F 'ip-' '{print $2}'|tr "-" "."`
                 echo "I am at the last of the logic, $private_ip_address"
                 echo "$private_ip_address"
-                //'''
-		//println $private_ip_address
+                '''
+		println $private_ip_address
 		ENV_VARS += '\n' + private_ip_address
                 println "$ENV_VARS"
                 }
