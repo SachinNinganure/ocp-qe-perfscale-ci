@@ -115,7 +115,7 @@ pipeline {
               ls -la
               cd Egress-Load-test 
 	      pwd
-              ./run.sh $private_ip_address 
+              ./run.sh 
               '''
             }
           }
