@@ -48,7 +48,7 @@ pipeline {
             }
             script {   if (fileExists("flexy-artifacts/workdir/install-dir/cluster_info.json")){ 
                 println "private_ip_address"
-		def private_ip_address = "cat flexy-artifacts/workdir/install-dir/cluster_info.json"
+		private_ip_address = "cat flexy-artifacts/workdir/install-dir/cluster_info.json"
 		println private_ip_address
 		def contentregex = "INT_SVC_INSTANCE_INTERNAL_IP"
 		private_ip_address = (private_ip_address =~ contentregex)
