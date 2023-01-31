@@ -118,7 +118,7 @@ pipeline {
 	      echo $private_ip_address
 	      echo "RUNNING THE EGRESS PERF TEST"
 	      pwd
-              ./run.sh $private_ip_address 
+              ./run.sh  
               '''
             }
           }
