@@ -60,7 +60,7 @@ pipeline {
 		ls flexy-artifacts/workdir/install-dir/ipfile.txt
 	        export ENV_VARS="$private_ip_address"
 		private_ip_address="private_ip_address="+private_ip_address
-		println private_ip_address
+		echo private_ip_address
 		ENV_VARS += '\n' + private_ip_address
                 echo "$ENV_VARS" > .env_override
                 set -a && source .env_override && set +a
