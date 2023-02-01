@@ -123,8 +123,8 @@ pipeline {
               cd Egress-Load-test 
 	      echo "RUNNING THE EGRESS PERF TEST"
 	      echo ${myVar}	      
-	      pwd;ls flexy-artifacts/workdir/install-dir/ipfile.txt;cat flexy-artifacts/workdir/install-dir/ipfile.txt
-	      myVar = readFile('flexy-artifacts/workdir/install-dir/ipfile.txt').trim()
+	      pwd;ls $WORKSPACE/flexy-artifacts/workdir/install-dir/ipfile.txt;cat flexy-artifacts/workdir/install-dir/ipfile.txt
+	      myVar = readFile('$WORKSPACE/flexy-artifacts/workdir/install-dir/ipfile.txt').trim()
 	      echo ${myVar}
 	      echo $private_ip_address 
               ./run.sh ${myVar}
