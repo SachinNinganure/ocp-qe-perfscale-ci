@@ -106,29 +106,17 @@ pipeline {
           steps{
             ansiColor('xterm') {
               sh label: '', script: '''
- 	    if (fileExists("flexy-artifacts/workdir/install-dir/cluster_info.json")){
-                println "private_ip_address"
-                private_ip_address = "cat flexy-artifacts/workdir/install-dir/cluster_info.json"
-                ENV_VARS += '\n' + private_ip_address
-                echo "$ENV_VARS" > .env_override
-                set -a && source .env_override && set +a
-                private_ip_address=`grep INT_SVC_INSTANCE_INTERNAL_IP flexy-artifacts/workdir/install-dir/cluster_info.json|cut -d "," -f3-|cut -d ":" -f2-|sed 's/}//g'|cut -d "." -f1 |sed 's/-/./g'|cut -d "." -f2-`
-                echo "**************************************************************************************************************************************************************************************************************************************************************Printing the ipaddress in second if and pass to run.sh********************************************************************************************************************************************************************"
-		echo "$private_ip_address"
-                echo "I am at the last of the logic, $private_ip_address"
-                echo $private_ip_address >flexy-artifacts/workdir/install-dir/ipfile.txt
-              
-               # Get ENV VARS Supplied by the user to this job and store in .env_override
-               echo "$ENV_VARS" > .env_override
-               # Export those env vars so they could be used by CI Job
-               set -a && source .env_override && set +a
-               mkdir -p ~/.kube
-               cp $WORKSPACE/flexy-artifacts/workdir/install-dir/auth/kubeconfig ~/.kube/config
-               ls -la
-               cd Egress-Load-test 
-	       pwd
-               ./run.sh $private_ip_address 
-               '''
+              # Get ENV VARS Supplied by the user to this job and store in .env_override
+              echo "$ENV_VARS" > .env_override
+              # Export those env vars so they could be used by CI Job
+              set -a && source .env_override && set +a
+              mkdir -p ~/.kube
+              cp $WORKSPACE/flexy-artifacts/workdir/install-dir/auth/kubeconfig ~/.kube/config
+              ls -la
+              cd Egress-Load-test 
+	      pwd
+              ./run.sh 
+              '''
             }
           }
         }
