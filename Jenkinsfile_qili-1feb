@@ -2,6 +2,7 @@
 
 // rename build
 def private_ip_address = ""
+def myVar = ""
 def userId = currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause)?.userId
 if (userId) {
   currentBuild.displayName = userId
@@ -52,20 +53,20 @@ pipeline {
 		println private_ip_address
                 ENV_VARS += '\n' + private_ip_address
 		sh label: '', script: '''
-		echo "$ENV_VARS" > .env_override
-		set -a && source .env_override && set +a
 		private_ip_address=`grep INT_SVC_INSTANCE_INTERNAL_IP flexy-artifacts/workdir/install-dir/cluster_info.json|cut -d "," -f3-|cut -d ":" -f2-|sed 's/}//g'|cut -d "." -f1 |sed 's/-/./g'|cut -d "." -f2-`
-                echo "$private_ip_address"
+		echo "$private_ip_address"
                 echo "I am at the last of the logic, $private_ip_address"
 		echo $private_ip_address >flexy-artifacts/workdir/install-dir/ipfile.txt
-                '''
-		private_ip_address = sh returnStdout: true, script: 'cat flexy-artifacts/workdir/install-dir/ipfile.txt'
-		println private_ip_address
-		println "now copying ip to ENV variable"
+		ls flexy-artifacts/workdir/install-dir/ipfile.txt
+	        export ENV_VARS="$private_ip_address"
+		private_ip_address="private_ip_address="+private_ip_address
+		echo private_ip_address
+		'''
 		ENV_VARS += '\n' + private_ip_address
-                println "printing the ENV variable "
-		println "$ENV_VARS"
-                }
+                echo "$ENV_VARS" > .env_override
+                set -a && source .env_override && set +a
+                env
+		}
               }
           }
         }
@@ -114,8 +115,9 @@ pipeline {
               cp $WORKSPACE/flexy-artifacts/workdir/install-dir/auth/kubeconfig ~/.kube/config
               ls -la
               cd Egress-Load-test 
-	      pwd
-              ./run.sh 
+	      echo "RUNNING THE EGRESS PERF TEST"
+	      echo $private_ip_address 
+              ./run.sh
               '''
             }
           }
