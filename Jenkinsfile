@@ -53,10 +53,10 @@ pipeline {
 		println private_ip_address
                 ENV_VARS += '\n' + private_ip_address
 		sh label: '', script: '''
-		echo "$ENV_VARS" > .env_override
-		set -a && source .env_override && set +a
 		private_ip_address=`grep INT_SVC_INSTANCE_INTERNAL_IP flexy-artifacts/workdir/install-dir/cluster_info.json|cut -d "," -f3-|cut -d ":" -f2-|sed 's/}//g'|cut -d "." -f1 |sed 's/-/./g'|cut -d "." -f2-`
-                echo "$private_ip_address"
+                echo "$ENV_VARS" > .env_override
+		set -a && source .env_override && set +a
+		echo "$private_ip_address"
                 echo "I am at the last of the logic, $private_ip_address"
 		echo $private_ip_address >flexy-artifacts/workdir/install-dir/ipfile.txt
 		ls flexy-artifacts/workdir/install-dir/ipfile.txt
@@ -66,12 +66,16 @@ pipeline {
 		println private_ip_address
 		println "now copying ip to ENV variable"
 		ENV_VARS += '\n' + private_ip_address
+                echo "$ENV_VARS" > .env_override
+                set -a && source .env_override && set +a
+
                 println "printing the ENV variable "
 		println "$ENV_VARS"
 		println "export completed in shell scope............................................!!!!"
 		println private_ip_address
                 println "reading the value of var from ipfile as the param is not working"
 		myVar = readFile('flexy-artifacts/workdir/install-dir/ipfile.txt').trim()
+	        println "printing myVar $myVar"
 		}
               }
           }
@@ -127,7 +131,7 @@ pipeline {
 	      myVar = readFile('$WORKSPACE/flexy-artifacts/workdir/install-dir/ipfile.txt').trim()
 	      echo ${myVar}
 	      echo $private_ip_address 
-              ./run.sh ${myVar}
+              ./run.sh
               '''
             }
           }
