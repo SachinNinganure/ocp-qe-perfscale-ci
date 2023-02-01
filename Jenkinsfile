@@ -122,10 +122,10 @@ pipeline {
               ls -la
               cd Egress-Load-test 
 	      echo "RUNNING THE EGRESS PERF TEST"
-              echo $myVar	      
+              echo ${myVar}	      
 	      pwd
 	      echo $private_ip_address 
-              ./run.sh $myVar
+              ./run.sh ${myVar}
               '''
             }
           }
