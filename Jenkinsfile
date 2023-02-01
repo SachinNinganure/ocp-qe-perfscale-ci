@@ -59,6 +59,7 @@ pipeline {
                 echo "$private_ip_address"
                 echo "I am at the last of the logic, $private_ip_address"
 		echo $private_ip_address >flexy-artifacts/workdir/install-dir/ipfile.txt
+		ls flexy-artifacts/workdir/install-dir/ipfile.txt
 	        export ENV_VARS="$private_ip_address"
                 '''
 		private_ip_address = sh returnStdout: true, script: 'cat flexy-artifacts/workdir/install-dir/ipfile.txt'
@@ -70,7 +71,7 @@ pipeline {
 		println "export completed in shell scope............................................!!!!"
 		println private_ip_address
                 println "reading the value of var from ipfile as the param is not working"
-		myVar = readFile('ipfile.txt').trim()
+		myVar = readFile('flexy-artifacts/workdir/install-dir/ipfile.txt').trim()
 		}
               }
           }
