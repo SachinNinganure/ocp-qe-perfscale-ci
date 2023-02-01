@@ -2,6 +2,7 @@
 
 // rename build
 def private_ip_address = ""
+def myVar = ""
 def userId = currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause)?.userId
 if (userId) {
   currentBuild.displayName = userId
@@ -68,7 +69,9 @@ pipeline {
 		println "$ENV_VARS"
 		println "export completed in shell scope............................................!!!!"
 		println private_ip_address
-                }
+                println "reading the value of var from ipfile as the param is not working"
+		myVar = readFile('ipfile.txt').trim(
+		}
               }
           }
         }
@@ -118,9 +121,10 @@ pipeline {
               ls -la
               cd Egress-Load-test 
 	      echo "RUNNING THE EGRESS PERF TEST"
+              echo $myVar	      
 	      pwd
 	      echo $private_ip_address 
-              ./run.sh $ENV_VARS 
+              ./run.sh $myVar
               '''
             }
           }
