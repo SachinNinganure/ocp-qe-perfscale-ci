@@ -14,7 +14,7 @@ pipeline {
         string(name: 'BUILD_NUMBER', defaultValue: '', description: 'Build number of job that has installed the cluster.')
         string(name: 'JENKINS_AGENT_LABEL',defaultValue:'oc410 || oc411 || oc412')
         string(name: 'EGRESS_REPO', defaultValue:'https://github.com/SachinNinganure/Egress-Load-test', description:'You can change this to point to your fork if needed.')
-        string(name: 'EGRESS_REPO_BRANCH', defaultValue:'main', description:'You can change this to point to a branch on your fork if needed.')
+        string(name: 'EGRESS_REPO_BRANCH', defaultValue:'master', description:'You can change this to point to a branch on your fork if needed.')
         text(name: 'ENV_VARS', defaultValue: '', description:'''<p>
                Enter list of additional (optional) Env Vars you'd want to pass to the script, one pair on each line. <br>
                e.g.<br>
@@ -74,19 +74,6 @@ pipeline {
             }
           }
         }
-                       install = build job:"ocp-common/ginkgo-test", propagate: false, parameters:[
-                        string(name: "SCENARIO", value: 907272),
-                        string(name: "FLEXY_BUILD", value: ""),
-                        string(name: "TIERN_REPO_OWNER", value: sachinninganure),
-                        text(name: 'REPOSITORIES', value: '''
-                    ]
-                    currentBuild.result =  install.result
-                    FLEXY_BUILD_NUMBER = install.number.toString()
-                    if( install.result.toString()  != "SUCCESS") {
-                        println "installation failed"
-                        status = "Install failed"
-
-                    }
         stage('Debug info'){
           when {
             environment name: 'DEBUG', value: 'true'
