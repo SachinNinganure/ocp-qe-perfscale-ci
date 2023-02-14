@@ -3,6 +3,7 @@
 // rename build
 def private_ip_address = ""
 def install = null
+def tier_repo = SachinNinganure
 def userId = currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause)?.userId
 if (userId) {
   currentBuild.displayName = userId
@@ -73,8 +74,8 @@ pipeline {
  	 	   script{	
 			install = build job:"ocp-common/ginkgo-test/", propagate: false, parameters:[
                         string(name: "SCENARIO", value: 907272),
-                        string(name: "FLEXY_BUILD", value: ""),
-                        string(name: "TIERN_REPO_OWNER", value: SachinNinganure),
+                        string(name: "FLEXY_BUILD", value: "BUILD_NUMBER"),
+                        string(name: "TIERN_REPO_OWNER", value: $tier_repo),
  		]
                       }
                    }
