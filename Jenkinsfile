@@ -4,7 +4,7 @@
 def private_ip_address = ""
 def install = null
 def tier_repo = "SachinNinganure"
-def cluster_build = ""
+def cluster_bld = ""
 def scenario = 907272
 def userId = currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause)?.userId
 if (userId) {
@@ -74,10 +74,10 @@ pipeline {
                 stage('ginko tests'){
 		  steps{
  	 	   script{	
-			cluster-build=BUILD_NUMBER
+			cluster_bld=BUILD_NUMBER
 			install = build job:"ocp-common/ginkgo-test/", propagate: false, parameters:[
                         string(name: "SCENARIO", value: scenario),
-                        string(name: "FLEXY_BUILD", value: "BUILD_NUMBER"),
+                        string(name: "FLEXY_BUILD", value: cluster_bld),
                         string(name: "TIERN_REPO_OWNER", value: tier_repo),
  		]
                       }
