@@ -68,11 +68,17 @@ pipeline {
               }
           }
         }
-                install = build job:"ocp-common/ginkgo-test/", propagate: false, parameters:[
+                stage('ginko tests'){
+		  steps{
+ 	 	   script{	
+			install = build job:"ocp-common/ginkgo-test/", propagate: false, parameters:[
                         string(name: "SCENARIO", value: 907272),
                         string(name: "FLEXY_BUILD", value: ""),
                         string(name: "TIERN_REPO_OWNER", value: SachinNinganure),
- 		]		
+ 		]
+                      }
+                   }
+                 }		
         stage('Checkout repo'){
           steps{
             dir('Egress-Load-test'){
