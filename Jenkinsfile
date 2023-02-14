@@ -2,6 +2,7 @@
 
 // rename build
 def private_ip_address = ""
+def install = null
 def userId = currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause)?.userId
 if (userId) {
   currentBuild.displayName = userId
