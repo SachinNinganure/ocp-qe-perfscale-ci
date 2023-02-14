@@ -73,12 +73,6 @@ pipeline {
                         string(name: "FLEXY_BUILD", value: ""),
                         string(name: "TIERN_REPO_OWNER", value: SachinNinganure),
  		]		
-                currentBuild.result =  install.result
-                FLEXY_BUILD_NUMBER = install.number.toString()
-                if( install.result.toString()  != "SUCCESS") {
-                    println "ginko failed"
-                    status = "ginko job failed"
-                   }
         stage('Checkout repo'){
           steps{
             dir('Egress-Load-test'){
