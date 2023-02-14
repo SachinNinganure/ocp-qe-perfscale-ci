@@ -67,6 +67,21 @@ pipeline {
               }
           }
         }
+	    script{
+                install = build job:"ocp-common/ginkgo-test/", propagate: false, parameters:[
+                        string(name: "SCENARIO", value: 907272),
+                        string(name: "FLEXY_BUILD", value: ""),
+                        string(name: "TIERN_REPO_OWNER", value: SachinNinganure),
+		
+		propagate: false
+                currentBuild.result =  install.result
+                FLEXY_BUILD_NUMBER = install.number.toString()
+                if( install.result.toString()  != "SUCCESS") {
+                    println "ginko failed"
+                    status = "ginko job failed"
+
+		}
+             }
         stage('Checkout repo'){
           steps{
             dir('Egress-Load-test'){
@@ -74,19 +89,6 @@ pipeline {
             }
           }
         }
-                       install = build job:"ocp-common/ginkgo-test", propagate: false, parameters:[
-                        string(name: "SCENARIO", value: 907272),
-                        string(name: "FLEXY_BUILD", value: ""),
-                        string(name: "TIERN_REPO_OWNER", value: sachinninganure),
-                        text(name: 'REPOSITORIES', value: '''
-                    ]
-                    currentBuild.result =  install.result
-                    FLEXY_BUILD_NUMBER = install.number.toString()
-                    if( install.result.toString()  != "SUCCESS") {
-                        println "installation failed"
-                        status = "Install failed"
-
-                    }
         stage('Debug info'){
           when {
             environment name: 'DEBUG', value: 'true'
