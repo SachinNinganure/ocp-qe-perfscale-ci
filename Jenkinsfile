@@ -80,6 +80,7 @@ pipeline {
                     println "ginko failed"
                     status = "ginko job failed"
 
+		]
 		}
              }
         stage('Checkout repo'){
