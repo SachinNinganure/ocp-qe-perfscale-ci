@@ -67,7 +67,7 @@ pipeline {
               }
           }
         }
-	    script{
+	    stage("Call ginko test"){
                 install = build job:"ocp-common/ginkgo-test/", propagate: false, parameters:[
                         string(name: "SCENARIO", value: 907272),
                         string(name: "FLEXY_BUILD", value: ""),
