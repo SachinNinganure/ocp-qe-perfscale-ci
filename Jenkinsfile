@@ -72,7 +72,7 @@ pipeline {
                         string(name: "SCENARIO", value: 907272),
                         string(name: "FLEXY_BUILD", value: ""),
                         string(name: "TIERN_REPO_OWNER", value: SachinNinganure),
-		
+ 		]		
 		propagate: false
                 currentBuild.result =  install.result
                 FLEXY_BUILD_NUMBER = install.number.toString()
@@ -80,7 +80,6 @@ pipeline {
                     println "ginko failed"
                     status = "ginko job failed"
 
-		]
 		}
              }
         stage('Checkout repo'){
