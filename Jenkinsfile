@@ -5,7 +5,7 @@ def private_ip_address = ""
 def install = null
 def tier_repo = "SachinNinganure"
 def cluster_bld = ""
-def scenario = 907272
+def scenario = "907272"
 def userId = currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause)?.userId
 if (userId) {
   currentBuild.displayName = userId
