@@ -73,7 +73,6 @@ pipeline {
                         string(name: "FLEXY_BUILD", value: ""),
                         string(name: "TIERN_REPO_OWNER", value: SachinNinganure),
  		]		
-		propagate: false
                 currentBuild.result =  install.result
                 FLEXY_BUILD_NUMBER = install.number.toString()
                 if( install.result.toString()  != "SUCCESS") {
