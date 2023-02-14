@@ -67,8 +67,6 @@ pipeline {
               }
           }
         }
-	    stage("Call ginko test"){
-	        steps {
                 install = build job:"ocp-common/ginkgo-test/", propagate: false, parameters:[
                         string(name: "SCENARIO", value: 907272),
                         string(name: "FLEXY_BUILD", value: ""),
@@ -81,8 +79,6 @@ pipeline {
                     println "ginko failed"
                     status = "ginko job failed"
                    }
-		}
-             }
         stage('Checkout repo'){
           steps{
             dir('Egress-Load-test'){
