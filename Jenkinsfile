@@ -75,7 +75,7 @@ pipeline {
 			install = build job:"ocp-common/ginkgo-test/", propagate: false, parameters:[
                         string(name: "SCENARIO", value: 907272),
                         string(name: "FLEXY_BUILD", value: "BUILD_NUMBER"),
-                        string(name: "TIERN_REPO_OWNER", value: $tier_repo),
+                        string(name: "TIERN_REPO_OWNER", value: tier_repo),
  		]
                       }
                    }
