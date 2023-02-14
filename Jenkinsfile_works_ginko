@@ -29,8 +29,6 @@ pipeline {
                </p>'''
         )
         booleanParam(name: 'DEBUG', defaultValue: false)
-        booleanParam(name: 'IPECHO', defaultValue: false)
-
     }
 
   stages {
@@ -74,10 +72,6 @@ pipeline {
           }
         }
                 stage('ginko tests'){
-		  when {
-            		environment name: 'IPECHO', value: 'true'
-         		 }
-
 		  steps{
  	 	   script{	
 			cluster_bld=BUILD_NUMBER
