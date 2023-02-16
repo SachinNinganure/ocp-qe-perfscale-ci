@@ -30,8 +30,6 @@ pipeline {
         )
         booleanParam(name: 'DEBUG', defaultValue: false)
         booleanParam(name: 'IPECHO', defaultValue: false)
-	booleanParam(name: '4Projects', defaultValue: false)
-	booleanParam(name: '200Projects', defaultValue: false)
 
     }
 
@@ -124,11 +122,8 @@ pipeline {
           }
         }
 
-	stage('Run egress script to test the egress functionality- Projects=4'){
-          when {
-                        environment name: '4Projects', value: 'true'
-                         }
-	  steps{
+	stage('Run egress script to test the egress functionality'){
+          steps{
             ansiColor('xterm') {
               sh label: '', script: '''
               # Get ENV VARS Supplied by the user to this job and store in .env_override
@@ -140,34 +135,11 @@ pipeline {
               ls -la
               cd Egress-Load-test 
 	      pwd
-              ./run.sh_4p
+              ./run.sh 
               '''
             }
           }
         }
-
-        stage('Run egress script to test the egress functionality- Projects=200'){
-          when {
-                        environment name: '200Projects', value: 'true'
-                         }
-	  steps{
-            ansiColor('xterm') {
-              sh label: '', script: '''
-              # Get ENV VARS Supplied by the user to this job and store in .env_override
-              echo "$ENV_VARS" > .env_override
-              # Export those env vars so they could be used by CI Job
-              set -a && source .env_override && set +a
-              mkdir -p ~/.kube
-              cp $WORKSPACE/flexy-artifacts/workdir/install-dir/auth/kubeconfig ~/.kube/config
-              ls -la
-              cd Egress-Load-test
-              pwd
-              ./run.sh_200p
-              '''
-            }
-          }
-        }
-
         stage('Archive Artifacts') {
           steps {
                   sh 'pwd'
