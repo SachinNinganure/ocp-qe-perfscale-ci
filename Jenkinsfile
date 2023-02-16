@@ -34,7 +34,22 @@ pipeline {
         booleanParam(name: 'IPECHO', defaultValue: false)
 	booleanParam(name: '4Projects', defaultValue: false)
 	booleanParam(name: '200Projects', defaultValue: false)
-
+        
+        choice(
+          choices: ["application-outages","container-scenarios","namespace-scenarios","network-scenarios","node-scenarios","pod-scenarios","node-cpu-hog","node-io-hog", "node-memory-hog", "power-outages","pvc-scenario","time-scenarios","zone-outages"], 
+          name: 'KRAKEN_SCENARIO', 
+          description: '''Type of kraken scenario to run'''
+        )
+        choice(
+          choices: ["python","pod"], 
+          name: 'KRAKEN_RUN_TYPE', 
+          description: '''Type of way to run chaos scenario'''
+        )
+        string(
+            name: 'ITERATIONS', 
+            defaultValue: '', 
+            description: 'Number of iterations to run of kraken scenario.'
+        )
     }
 
   stages {
