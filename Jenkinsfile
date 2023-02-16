@@ -70,6 +70,11 @@ pipeline {
         defaultValue:'main', 
         description:'You can change this to point to a branch on your fork if needed.'
         )
+         string(
+          name: "PAUSE_TIME",
+          defaultValue: "5",
+          description: 'Amount of time to pause before running chaos scenarios'
+        )
     }
 
   stages {
