@@ -7,8 +7,6 @@ def tier_repo = "SachinNinganure"
 def cluster_bld = ""
 def scenario = "907272"
 def userId = currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause)?.userId
-def kraken_job = ""
-def cerberus_job = ""
 if (userId) {
   currentBuild.displayName = userId
 }
@@ -126,78 +124,49 @@ pipeline {
           }
         }
 
-       stage("Run parallel tests") {	
-	parallel {
-	   stage('Run egress script to test the egress functionality- Projects=4'){
-              when {
+	stage('Run egress script to test the egress functionality- Projects=4'){
+          when {
                         environment name: '4Projects', value: 'true'
                          }
-	     steps{
-               ansiColor('xterm') {
-               sh label: '', script: '''
-               # Get ENV VARS Supplied by the user to this job and store in .env_override
-               echo "$ENV_VARS" > .env_override
-               # Export those env vars so they could be used by CI Job
-               set -a && source .env_override && set +a
-               mkdir -p ~/.kube
-               cp $WORKSPACE/flexy-artifacts/workdir/install-dir/auth/kubeconfig ~/.kube/config
-               ls -la
-               cd Egress-Load-test 
-	       pwd
-               ./run.sh_4p
-               '''
-             }
-           }
-         }
-
-           stage('Run egress script to test the egress functionality- Projects=200'){
-              when {
-                        environment name: '200Projects', value: 'true'
-                         }
-	      steps{
-                 ansiColor('xterm') {
-                 sh label: '', script: '''
-                 # Get ENV VARS Supplied by the user to this job and store in .env_override
-                 echo "$ENV_VARS" > .env_override
-                 # Export those env vars so they could be used by CI Job
-                 set -a && source .env_override && set +a
-                 mkdir -p ~/.kube
-                 cp $WORKSPACE/flexy-artifacts/workdir/install-dir/auth/kubeconfig ~/.kube/config
-                 ls -la
-                 cd Egress-Load-test
-                 pwd
-                 ./run.sh_200p
-                 '''
+	  steps{
+            ansiColor('xterm') {
+              sh label: '', script: '''
+              # Get ENV VARS Supplied by the user to this job and store in .env_override
+              echo "$ENV_VARS" > .env_override
+              # Export those env vars so they could be used by CI Job
+              set -a && source .env_override && set +a
+              mkdir -p ~/.kube
+              cp $WORKSPACE/flexy-artifacts/workdir/install-dir/auth/kubeconfig ~/.kube/config
+              ls -la
+              cd Egress-Load-test 
+	      pwd
+              ./run.sh_4p
+              '''
             }
           }
         }
-	   
-           stage("Start Kraken run") {
-                agent { label params['JENKINS_AGENT_LABEL'] }
-                steps {
-                    script {
-                            kraken_job = build job: 'scale-ci/e2e-benchmarking-multibranch-pipeline/kraken',
-                            parameters: [
-                                string(name: 'BUILD_NUMBER', value: cluster_bld),text(name: "ENV_VARS", value: ENV_VARS),
-                                string(name: "KRAKEN_REPO", value: KRAKEN_REPO),string(name: "KRAKN_REPO_BRANCH", value: KRAKN_REPO_BRANCH),
-                                string(name: "KRAKEN_HUB_REPO", value: KRAKEN_HUB_REPO),string(name: "KRAKN_HUB_REPO_BRANCH", value: KRAKN_HUB_REPO_BRANCH),
-                                string(name: 'KRAKEN_SCENARIO', value: KRAKEN_SCENARIO),string(name: "KRAKEN_RUN_TYPE", value: KRAKEN_RUN_TYPE),
-                                string(name: 'JENKINS_AGENT_LABEL', value: JENKINS_AGENT_LABEL),string(name: "PAUSE_TIME", value: PAUSE_TIME),
-                                string(name: "ITERATIONS", value: ITERATIONS),string(name: "ENV_VARS", value: ENV_VARS)
-                            ],
-                            propagate: false
-                            currentBuild.description += """
-                            <b>Kraken Job: </b> <a href="${kraken_job.absoluteUrl}"> ${KRAKEN_SCENARIO} </a> <br/>
-                        """
-                    }
-                }
+
+        stage('Run egress script to test the egress functionality- Projects=200'){
+          when {
+                        environment name: '200Projects', value: 'true'
+                         }
+	  steps{
+            ansiColor('xterm') {
+              sh label: '', script: '''
+              # Get ENV VARS Supplied by the user to this job and store in .env_override
+              echo "$ENV_VARS" > .env_override
+              # Export those env vars so they could be used by CI Job
+              set -a && source .env_override && set +a
+              mkdir -p ~/.kube
+              cp $WORKSPACE/flexy-artifacts/workdir/install-dir/auth/kubeconfig ~/.kube/config
+              ls -la
+              cd Egress-Load-test
+              pwd
+              ./run.sh_200p
+              '''
             }
-
+          }
         }
-     }
-
-
-
 
         stage('Archive Artifacts') {
           steps {
