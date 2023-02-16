@@ -234,6 +234,27 @@ pipeline {
                 }
             }
 
+           stage('Set status') {
+                agent { label params['JENKINS_AGENT_LABEL'] }
+                steps {
+                    script{
+                    def status = ""
+                if ( kraken_job != "" ) {
+                    if (status != "" ) {
+                        status += ","
+                    }
+                    if ( kraken_job.result.toString() != "SUCCESS" ){
+                        status += "Kraken Failed"
+                        currentBuild.result = "FAILURE"
+                    } else {
+                        status += "Kraken Passed"
+                                          }
+                                      }
+                             }
+           }
+         }
+
+
         }
      }
 
