@@ -50,6 +50,26 @@ pipeline {
             defaultValue: '', 
             description: 'Number of iterations to run of kraken scenario.'
         )
+        string(
+        name: 'KRAKEN_REPO', 
+        defaultValue:'https://github.com/redhat-chaos/krkn', 
+        description:'You can change this to point to your fork if needed.'
+       )
+       string(
+        name: 'KRAKN_REPO_BRANCH', 
+        defaultValue:'main', 
+        description:'You can change this to point to a branch on your fork if needed.'
+       )
+       string(
+        name: 'KRAKEN_HUB_REPO', 
+        defaultValue:'https://github.com/redhat-chaos/krkn-hub', 
+        description:'You can change this to point to your fork if needed.'
+        )
+       string(
+        name: 'KRAKN_HUB_REPO_BRANCH', 
+        defaultValue:'main', 
+        description:'You can change this to point to a branch on your fork if needed.'
+        )
     }
 
   stages {
