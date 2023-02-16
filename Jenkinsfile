@@ -216,7 +216,8 @@ pipeline {
                 agent { label params['JENKINS_AGENT_LABEL'] }
                 steps {
                     script {
-                            kraken_job = build job: 'scale-ci/e2e-benchmarking-multibranch-pipeline/kraken',
+                            cluster_bld=BUILD_NUMBER
+			    kraken_job = build job: 'scale-ci/e2e-benchmarking-multibranch-pipeline/kraken',
                             parameters: [
                                 string(name: 'BUILD_NUMBER', value: cluster_bld),text(name: "ENV_VARS", value: ENV_VARS),
                                 string(name: "KRAKEN_REPO", value: KRAKEN_REPO),string(name: "KRAKN_REPO_BRANCH", value: KRAKN_REPO_BRANCH),
