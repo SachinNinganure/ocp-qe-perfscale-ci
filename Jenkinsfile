@@ -213,8 +213,8 @@ pipeline {
                 agent { label params['JENKINS_AGENT_LABEL'] }
                 steps {
                     script {
-                        cerberus_job = build job: 'scale-ci/e2e-benchmarking-multibranch-pipeline/cerberus',
-                        cluster_bld=BUILD_NUMBER
+                           cluster_bld=BUILD_NUMBER
+			   cerberus_job = build job: 'scale-ci/e2e-benchmarking-multibranch-pipeline/cerberus',
                             parameters: [
                                 string(name: 'BUILD_NUMBER', value: cluster_bld),text(name: "ENV_VARS", value: ENV_VARS),
                                 string(name: "CERBERUS_WATCH_NAMESPACES", value: CERBERUS_WATCH_NAMESPACES),
