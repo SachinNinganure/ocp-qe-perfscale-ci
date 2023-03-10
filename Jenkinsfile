@@ -306,15 +306,34 @@ pipeline {
                     if (status != "" ) {
                         status += ","
                     }
-                    if ( kraken_job.result.toString() != "SUCCESS" ){
+                if ( kraken_job.result.toString() != "SUCCESS" ){
                         status += "Kraken Failed"
                         currentBuild.result = "FAILURE"
                     } else {
                         status += "Kraken Passed"
                                           }
                                       }
-                             }
+            if ( cerberus_job != "" ) {
+                    if (status != "" ) {
+                        status += ","
+                    }
+                    if ( cerberus_job.result.toString() != "SUCCESS" ) {
+                        if (status != "" ) {
+                        status += ","
+                        }
+                        status += "Cerberus Failed"
+                        currentBuild.result = "FAILURE"
+                    } else { 
+                        status += "Cerberus Passed"
+                    }
+                }
+                currentBuild.description += """
+                    <b>Final Status: </b> ${status} <br/>
+                """
+                                     }
+                         }
                      }
+                
                  }
 
 
