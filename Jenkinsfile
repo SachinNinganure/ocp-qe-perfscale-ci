@@ -214,8 +214,9 @@ pipeline {
                 steps {
                     script {
                         cerberus_job = build job: 'scale-ci/e2e-benchmarking-multibranch-pipeline/cerberus',
+                        cluster_bld=BUILD_NUMBER
                             parameters: [
-                                string(name: 'BUILD_NUMBER', value: BUILD_NUMBER),text(name: "ENV_VARS", value: ENV_VARS),
+                                string(name: 'BUILD_NUMBER', value: cluster_bld),text(name: "ENV_VARS", value: ENV_VARS),
                                 string(name: "CERBERUS_WATCH_NAMESPACES", value: CERBERUS_WATCH_NAMESPACES),
                                 string(name: 'CERBERUS_IGNORE_PODS', value: CERBERUS_IGNORE_PODS),string(name: 'CERBERUS_ITERATIONS', value: CERBERUS_ITERATIONS),
                                 string(name: 'JENKINS_AGENT_LABEL', value: JENKINS_AGENT_LABEL),booleanParam(name: "INSPECT_COMPONENTS", value: false),
