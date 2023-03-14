@@ -36,7 +36,7 @@ pipeline {
 	booleanParam(name: '200Projects', defaultValue: false)
         
         choice(
-          choices: ["application-outages","container-scenarios","namespace-scenarios","network-scenarios","node-scenarios","pod-scenarios","node-cpu-hog","node-io-hog", "node-memory-hog", "power-outages","pvc-scenario","time-scenarios","zone-outages"], 
+          choices: ["application-outages","container-scenarios","namespace-scenarios","network-chaos","network-scenarios","node-scenarios","pod-scenarios","node-cpu-hog","node-io-hog", "node-memory-hog", "power-outages","pvc-scenario","time-scenarios","zone-outages"], 
           name: 'KRAKEN_SCENARIO', 
           description: '''Type of kraken scenario to run'''
         )
