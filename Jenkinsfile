@@ -31,7 +31,6 @@ def cerberus_job = ""
 def status = "FAIL"
 
 def JENKINS_JOB_NUMBER = currentBuild.number.toString()
-export NODE_SELECTOR=node-role.kubernetes.io/edge
 println "JENKINS_JOB_NUMBER $JENKINS_JOB_NUMBER"
 pipeline {
   agent none
