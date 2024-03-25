@@ -42,7 +42,7 @@ pipeline {
       )
       choice(
           name: 'WORKLOAD',
-          choices: ["cluster-density", "cluster-density-ms","node-density", "node-density-heavy","node-density-cni","node-density-cni-networkpolicy","pod-density", "pod-density-heavy","concurrent-builds","pods-service-route","networkpolicy-case1","networkpolicy-case2","networkpolicy-case3"],
+          choices: ["cluster-density", "cluster-density-ms","node-density", "node-density-heavy","node-density-cni","node-density-cni-networkpolicy","pod-density", "pod-density-heavy","concurrent-builds","pods-service-route","networkpolicy-case1","networkpolicy-case2","networkpolicy-case3","etcdperf"],
           description: 'Type of kube-burner job to run'
       )
       booleanParam(
@@ -99,6 +99,7 @@ pipeline {
           networkpolicy-case1: This will export JOB_ITERATIONS env variable; set to 5 * num_workers. This variable sets the number of iterations to perform (1 namespace per iteration)<br>
           networkpolicy-case2: This will export JOB_ITERATIONS env variable; set to 1 * num_workers. This variable sets the number of iterations to perform (1 namespace per iteration)<br>
           networkpolicy-case3: This will export JOB_ITERATIONS env variable; set to 4 * num_workers. This variable sets the number of iterations to perform (1 namespace per iteration)<br>
+          etcdperf:  This will run etcd perf test<br>
           Read <a href=https://github.com/openshift-qe/ocp-qe-perfscale-ci/tree/kube-burner/README.md>here</a> for details about each variable
           '''
       )
